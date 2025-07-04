@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ánimo Hoy - Mood Today</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- html2canvas para capturas -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <style>
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: rgba(0, 0, 0, 0.75);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .modal.hidden {
+      display: none;
+    }
+    .modal-content {
+      background: #fefefe;
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      font-family: 'IM Fell English', serif;
+      width: 300px;
+      box-shadow: 0 0 20px #000;
+    }
+    .modal-content h2 {
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    .share-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .share-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      color: #333;
+    }
+    .share-bar-fill {
+      height: 1rem;
+      border-radius: 0.5rem;
+      flex-grow: 1;
+      margin-left: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ánimo Hoy - Mood Today</h1>
+    <h2>Descubre tus matices de ánimo hoy dependiendo de dónde vives</h2>
+    <div class="selector">
+      <select id="citySelector">
+        <option disabled selected>¿De dónde eres?</option>
+        <option value="ciudad-de-mexico">Ciudad de México (México)</option>
+        <option value="ciudad-de-guatemala">Ciudad de Guatemala (Guatemala)</option>
+        <option value="tegucigalpa">Tegucigalpa (Honduras)</option>
+        <option value="san-salvador">San Salvador (El Salvador)</option>
+        <option value="managua">Managua (Nicaragua)</option>
+        <option value="san-jose-cr">San José (Costa Rica)</option>
+        <option value="ciudad-de-panama">Ciudad de Panamá (Panamá)</option>
+        <option value="bogota">Bogotá (Colombia)</option>
+        <option value="caracas">Caracas (Venezuela)</option>
+        <option value="quito">Quito (Ecuador)</option>
+        <option value="lima">Lima (Perú)</option>
+        <option value="la-paz">La Paz (Bolivia)</option>
+        <option value="asuncion">Asunción (Paraguay)</option>
+        <option value="montevideo">Montevideo (Uruguay)</option>
+        <option value="buenos-aires">Buenos Aires (Argentina)</option>
+        <option value="santiago">Santiago (Chile)</option>
+        <option value="brasilia">Brasilia (Brasil)</option>
+      </select>
+    </div>
+  </header>
+
+  <div class="main-content">
+    <div class="mood-background"></div>
+
+    <div class="chart-grid">
+      <div class="layers">
+        <input type="radio" id="felicidad" name="layer" checked>
+        <label for="felicidad">Felicidad</label>
+        <input type="radio" id="calma" name="layer"><label for="calma">Calma</label>
+        <input type="radio" id="motivacion" name="layer"><label for="motivacion">Motivación</label>
+        <input type="radio" id="estres" name="layer"><label for="estres">Estrés</label>
+        <input type="radio" id="ansiedad" name="layer"><label for="ansiedad">Ansiedad</label>
+        <input type="radio" id="energia" name="layer"><label for="energia">Energía</label>
+        <input type="radio" id="concentracion" name="layer"><label for="concentracion">Concentración</label>
+        <input type="radio" id="creatividad" name="layer"><label for="creatividad">Creatividad</label>
+      </div>
+
+      <!-- Barras -->
+      <div class="bar felicidad" data-value="0"><div class="bar-fill">0%</div></div>
+      <div class="bar calma" data-value="0"><div class="bar-fill">0%</div></div>
+      <div class="bar motivacion" data-value="0"><div class="bar-fill">0%</div></div>
+      <div class="bar estres" data-value="0"><div class="bar-fill">0%</div></div>
+      <div class="bar ansiedad" data-value="0"><div class="bar-fill">0%</div></div>
+      <div class="bar energia" data-value="0"><div class="bar-fill">0%</div></div>
+      <div class="bar concentracion" data-value="0"><div class="bar-fill">0%</div></div>
+      <div class="bar creatividad" data-value="0"><div class="bar-fill">0%</div></div>
+    </div>
+
+    <button class="share-btn">Compartir mi estado</button>
+  </div>
+
+  <!-- Modal para compartir -->
+  <div id="share-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Mi pronóstico emocional de hoy</h2>
+      <div class="share-chart" id="shareChart"></div>
+      <button onclick="downloadImage()">Descargar imagen</button>
+      <button onclick="closeModal()">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function getRandomBars(min = 30, max = 85) {
+      return Array.from({ length: 8 }, () =>
+        Math.floor(Math.random() * (max - min + 1)) + min
+      );
+    }
+
+    document.getElementById('citySelector').addEventListener('change', e => {
+      const randomBars = getRandomBars();
+      document.querySelectorAll('.bar').forEach((bar, i) => {
+        const v = randomBars[i];
+        bar.setAttribute('data-value', v);
+        const fill = bar.querySelector('.bar-fill');
+        fill.style.height = v + '%';
+        fill.textContent = v + '%';
+      });
+    });
+
+    function openModal() {
+      const chart = document.getElementById('shareChart');
+      chart.innerHTML = '';
+
+      document.querySelectorAll('.bar').forEach(bar => {
+        const mood = bar.classList[1];
+        const value = bar.getAttribute('data-value');
+        const color = getComputedStyle(document.documentElement)
+          .getPropertyValue('--c-' + mood);
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'share-bar';
+        wrapper.innerHTML = `
+          <span>${mood.charAt(0).toUpperCase() + mood.slice(1)}: ${value}%</span>
+          <div class="share-bar-fill" style="width:${value}%; background:${color}"></div>
+        `;
+        chart.appendChild(wrapper);
+      });
+
+      document.getElementById('share-modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('share-modal').classList.add('hidden');
+    }
+
+    function downloadImage() {
+      html2canvas(document.querySelector('.modal-content')).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'estado-animo.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    }
+
+    // Ahora sí, asignamos el evento una vez el DOM está cargado
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('.share-btn').addEventListener('click', openModal);
+    });
+  </script>
+</body>
+</html>
