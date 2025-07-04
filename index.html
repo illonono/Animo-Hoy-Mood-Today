@@ -105,30 +105,42 @@
   <div class="main-content">
     <div class="mood-background"></div>
 
-    <div class="chart-grid">
-      <div class="layers">
-        <input type="radio" id="felicidad" name="layer" checked>
-        <label for="felicidad">Felicidad</label>
-        <input type="radio" id="calma" name="layer"><label for="calma">Calma</label>
-        <input type="radio" id="motivacion" name="layer"><label for="motivacion">Motivación</label>
-        <input type="radio" id="estres" name="layer"><label for="estres">Estrés</label>
-        <input type="radio" id="ansiedad" name="layer"><label for="ansiedad">Ansiedad</label>
-        <input type="radio" id="energia" name="layer"><label for="energia">Energía</label>
-        <input type="radio" id="concentracion" name="layer"><label for="concentracion">Concentración</label>
-        <input type="radio" id="creatividad" name="layer"><label for="creatividad">Creatividad</label>
-      </div>
+<div class="chart-grid">
+  <!-- Fila 1: Labels -->
+  <input type="radio" id="felicidad" name="layer" checked>
+  <label for="felicidad">Felicidad</label>
 
-      <!-- Barras -->
-      <div class="bar felicidad" data-value="0"><div class="bar-fill">0%</div></div>
-      <div class="bar calma" data-value="0"><div class="bar-fill">0%</div></div>
-      <div class="bar motivacion" data-value="0"><div class="bar-fill">0%</div></div>
-      <div class="bar estres" data-value="0"><div class="bar-fill">0%</div></div>
-      <div class="bar ansiedad" data-value="0"><div class="bar-fill">0%</div></div>
-      <div class="bar energia" data-value="0"><div class="bar-fill">0%</div></div>
-      <div class="bar concentracion" data-value="0"><div class="bar-fill">0%</div></div>
-      <div class="bar creatividad" data-value="0"><div class="bar-fill">0%</div></div>
-    </div>
+  <input type="radio" id="calma" name="layer">
+  <label for="calma">Calma</label>
 
+  <input type="radio" id="motivacion" name="layer">
+  <label for="motivacion">Motivación</label>
+
+  <input type="radio" id="estres" name="layer">
+  <label for="estres">Estrés</label>
+
+  <input type="radio" id="ansiedad" name="layer">
+  <label for="ansiedad">Ansiedad</label>
+
+  <input type="radio" id="energia" name="layer">
+  <label for="energia">Energía</label>
+
+  <input type="radio" id="concentracion" name="layer">
+  <label for="concentracion">Concentración</label>
+
+  <input type="radio" id="creatividad" name="layer">
+  <label for="creatividad">Creatividad</label>
+
+  <!-- Fila 2: Barras -->
+  <div class="bar felicidad" data-value="0"><div class="bar-fill">0%</div></div>
+  <div class="bar calma" data-value="0"><div class="bar-fill">0%</div></div>
+  <div class="bar motivacion" data-value="0"><div class="bar-fill">0%</div></div>
+  <div class="bar estres" data-value="0"><div class="bar-fill">0%</div></div>
+  <div class="bar ansiedad" data-value="0"><div class="bar-fill">0%</div></div>
+  <div class="bar energia" data-value="0"><div class="bar-fill">0%</div></div>
+  <div class="bar concentracion" data-value="0"><div class="bar-fill">0%</div></div>
+  <div class="bar creatividad" data-value="0"><div class="bar-fill">0%</div></div>
+</div>
     <button class="share-btn">Compartir mi estado</button>
   </div>
 
