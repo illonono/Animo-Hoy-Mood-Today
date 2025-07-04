@@ -62,28 +62,43 @@ header h1 {
 .chart-grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto; /* Fila 1: etiquetas, Fila 2: barras */
   width: 100%;
   max-width: 800px;
-  gap: 0.5rem;
+  gap: 1rem;
 }
-.layers {
-  grid-row: 1;
-  display: contents;
+
+/* Estilo para los labels dentro del grid */
+.chart-grid label {
+  text-align: center;
+  cursor: pointer;
+  padding: 0.4rem 0.6rem;
+  border: 2px solid var(--color-important);
+  border-radius: 1.5rem;
+  font-weight: bold;
+  color: var(--color-important);
+  transition: background 0.3s;
+  font-family: 'IM Fell English', serif;
 }
-.layers input[type="radio"],
-.layers label {
-  grid-column: span 1;
-  justify-self: center;
+
+/* Oculta los botones de radio */
+.chart-grid input[type="radio"] {
+  display: none;
 }
-.chart {
+
+/* Cuando está seleccionado el radio, cambia el estilo del label */
+.chart-grid input[type="radio"]:checked + label {
+  background-color: var(--color-important);
+  color: var(--color-button-text);
+}
+
+/* Las barras están en la segunda fila */
+.chart-grid .bar {
   grid-row: 2;
-  display: contents;
-}
-.chart .bar {
   grid-column: span 1;
   justify-self: center;
 }
+
 
 /* Fondo animado */
 .mood-background {
