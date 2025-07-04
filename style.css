@@ -58,64 +58,41 @@ header h1 {
   font-family: 'IM Fell English', serif;
 }
 
-/* Grid para capas y barras */
+/* Grid para etiquetas y barras */
 .chart-grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: auto auto; /* Fila 1: etiquetas, Fila 2: barras */
+  gap: 0.5rem;
   width: 100%;
   max-width: 800px;
-  gap: 1rem;
+  justify-items: center;
 }
 
-/* Estilo para los labels dentro del grid */
-.chart-grid label {
-  text-align: center;
-  cursor: pointer;
-  padding: 0.4rem 0.6rem;
-  border: 2px solid var(--color-important);
-  border-radius: 1.5rem;
-  font-weight: bold;
-  color: var(--color-important);
-  transition: background 0.3s;
-  font-family: 'IM Fell English', serif;
-}
-
-/* Oculta los botones de radio */
-.chart-grid input[type="radio"] {
+/* Ocultar radios */
+input[type="radio"] {
   display: none;
 }
 
-/* Cuando está seleccionado el radio, cambia el estilo del label */
-.chart-grid input[type="radio"]:checked + label {
+/* Estilos de las etiquetas */
+label {
+  font-weight: bold;
+  color: var(--color-important);
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border: 2px solid var(--color-important);
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+  text-align: center;
+  animation: palpitarBoton 4s infinite ease-in-out;
+}
+input[type="radio"]:checked + label {
   background-color: var(--color-important);
   color: var(--color-button-text);
 }
 
-/* Las barras están en la segunda fila */
-.chart-grid .bar {
-  grid-row: 2;
-  grid-column: span 1;
-  justify-self: center;
-}
-
-
-/* Fondo animado */
-.mood-background {
-  width: 100%;
-  height: 200px;
-  border-radius: 1rem;
-  background: linear-gradient(45deg, var(--color-title), var(--color-important));
-  animation: bgPulse 5s infinite alternate;
-}
-@keyframes bgPulse {
-  from { opacity: 0.8; }
-  to { opacity: 1; }
-}
-
-/* Barras y colores por matiz */
+/* Barras */
 .bar {
-  position: relative;
   width: 100%;
   height: 120px;
   display: flex;
@@ -123,8 +100,7 @@ header h1 {
   align-items: center;
   justify-content: flex-end;
   overflow: hidden;
-  border-radius: 0.5rem 0.5rem 0 0;
-  transition: height 0.5s, opacity 0.3s;
+  position: relative;
 }
 
 .bar-fill {
@@ -148,37 +124,6 @@ header h1 {
 .bar.concentracion .bar-fill { background-color: var(--c-concentracion); }
 .bar.creatividad .bar-fill  { background-color: var(--c-creatividad); }
 
-/* Filtrado por capa: atenúa las barras no seleccionadas */
-.layers input#felicidad:checked ~ .chart .bar:not(.felicidad),
-.layers input#calma:checked ~ .chart .bar:not(.calma),
-.layers input#motivacion:checked ~ .chart .bar:not(.motivacion),
-.layers input#estres:checked ~ .chart .bar:not(.estres),
-.layers input#ansiedad:checked ~ .chart .bar:not(.ansiedad),
-.layers input#energia:checked ~ .chart .bar:not(.energia),
-.layers input#concentracion:checked ~ .chart .bar:not(.concentracion),
-.layers input#creatividad:checked ~ .chart .bar:not(.creatividad) {
-  opacity: 0.2;
-}
-
-/* Radios y labels */
-.layers input[type="radio"] {
-  display: none;
-}
-.layers label {
-  padding: 0.4rem 0.8rem;
-  border: 2px solid var(--color-important);
-  border-radius: 1.5rem;
-  cursor: pointer;
-  color: var(--color-important);
-  font-weight: bold;
-  transition: background 0.3s;
-  animation: palpitarBoton 4s infinite ease-in-out;
-}
-.layers input[type="radio"]:checked + label {
-  background: var(--color-important);
-  color: var(--color-button-text);
-}
-
 /* Botón compartir */
 .share-btn {
   margin-top: 1rem;
@@ -191,26 +136,7 @@ header h1 {
   font-family: 'IM Fell English', serif;
 }
 
-/* Animaciones */
-@keyframes palpitar {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.03);
-  }
-}
-
-@keyframes palpitarBoton {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.03);
-  }
-}
-
-/* Modal de compartir */
+/* Modal */
 .modal {
   position: fixed;
   top: 0; left: 0;
@@ -257,79 +183,26 @@ header h1 {
   margin-left: 0.5rem;
 }
 
-/* Responsive para tablets (ancho máximo 1024px) */
-@media (max-width: 1024px) {
+@keyframes palpitar {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+@keyframes palpitarBoton {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .chart-grid {
-    grid-template-columns: repeat(4, 1fr); /* 4 columnas */
-    gap: 0.75rem;
-  }
-
-  .layers label {
-    font-size: 0.9rem;
-    padding: 0.3rem 0.6rem;
-  }
-
-  header h1 {
-    font-size: 2rem;
-  }
-
-  header h2 {
-    font-size: 1rem;
-  }
-
-  .modal-content {
-    width: 90%;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 1rem;
   }
 }
 
-/* Responsive para celulares (ancho máximo 600px) */
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .chart-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
-  }
-
-  .bar {
-    width: 100%;
-    height: 100px;
-  }
-
-  .bar-fill {
-    font-size: 0.75rem;
-  }
-
-  .layers label {
-    font-size: 0.8rem;
-    padding: 0.3rem 0.5rem;
-  }
-
-  header h1 {
-    font-size: 1.6rem;
-  }
-
-  header h2 {
-    font-size: 0.9rem;
-  }
-
-  .selector select {
-    width: 100%;
-    font-size: 1rem;
-  }
-
-  .share-btn {
-    width: 100%;
-    font-size: 1rem;
-    padding: 0.7rem;
-  }
-
-  .modal-content h2 {
-    font-size: 1.2rem;
-  }
-
-  .share-bar {
-    font-size: 0.9rem;
-  }
-
-  .share-bar-fill {
-    height: 0.8rem;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
