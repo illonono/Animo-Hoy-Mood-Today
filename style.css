@@ -68,6 +68,13 @@ header h1 {
   justify-items: center;
 }
 
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5rem; 
+}
+
 /* Ocultar radios */
 input[type="radio"] {
   display: none;
@@ -205,11 +212,4 @@ input[type="radio"]:checked + label {
   .chart-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-}
-
-.item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5rem; 
 }
