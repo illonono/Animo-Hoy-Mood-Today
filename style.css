@@ -62,7 +62,7 @@ header h1 {
 .chart-grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  gap: 1rem;
+  gap: 2rem;
   width: 100%;
   max-width: 800px;
   justify-items: center;
