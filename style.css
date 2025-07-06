@@ -80,6 +80,18 @@ input[type="radio"] {
   display: none;
 }
 
+#google_translate_element {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem auto;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  backdrop-filter: blur(4px);
+  font-family: inherit;
+  z-index: 10;
+}
+
 /* Estilos de las etiquetas */
 label {
   font-weight: bold;
