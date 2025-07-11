@@ -53,7 +53,7 @@ header h1 {
 }
 .header__nav .nav__link {
   margin: 0 0.5rem;
-  color: var(--color-important);
+  color: var(--c-energia);
   text-decoration: none;
   font-weight: bold;
 }
