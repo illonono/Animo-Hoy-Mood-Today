@@ -130,17 +130,19 @@ input[type="radio"]:checked + label {
 
 .bar-fill {
   width: 80%;
-  height: 0;                
-  min-height: 4px;         
+  height: 0;
+  min-height: 4px;
   transition: height 0.4s ease-in-out;
   border-radius: 0.5rem 0.5rem 0 0;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-end;  /* Cambia esto */
   justify-content: center;
   font-size: 0.85rem;
   font-weight: bold;
   color: white;
+  padding-bottom: 4px; /* Agrega esto */
 }
+
 
 /* Colores por matiz */
 .bar.felicidad    .bar-fill { background-color: var(--c-felicidad); }
