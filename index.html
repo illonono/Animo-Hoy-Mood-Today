@@ -327,12 +327,12 @@ document.getElementById('citySelector').addEventListener('change', () => {
     const fill = bar.querySelector('.bar-fill');
 
 
-    fill.style.height = '4px';  
+    fill.style.height = '0%';  
     fill.textContent = '0%';
 
   
     setTimeout(() => {
-      const visualHeight = Math.max(v, 4); 
+      const visualHeight = Math.max(v, 6); 
       fill.style.height = visualHeight + '%';
       fill.textContent = v + '%';
       bar.setAttribute('data-value', v);
