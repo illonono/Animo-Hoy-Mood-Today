@@ -124,12 +124,11 @@ input[type="radio"]:checked + label {
   align-items: center;
   justify-content: flex-end;
   position: relative;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .bar-fill {
   width: 80%;
-  min-height: 4px; 
   height: 0%;
   transition: height 1s ease-in-out;
   border-radius: 0.5rem 0.5rem 0 0;
@@ -139,8 +138,8 @@ input[type="radio"]:checked + label {
   font-size: 0.85rem;
   font-weight: bold;
   color: white;
+  opacity: 0;
 }
-
 
 
 /* Colores */
