@@ -127,11 +127,12 @@ input[type="radio"]:checked + label {
   position: relative;
   overflow: hidden;
 }
+
 .bar-fill {
-  height: auto;
-  max-height: 100%;
-  min-height: 4px;        
-  transition: max-height 0.4s ease-in-out;
+  width: 80%;
+  height: 0;                
+  min-height: 4px;         
+  transition: height 0.4s ease-in-out;
   border-radius: 0.5rem 0.5rem 0 0;
   display: flex;
   align-items: flex-end;
@@ -141,14 +142,15 @@ input[type="radio"]:checked + label {
   color: white;
 }
 
-
+/* Colores por matiz */
 .bar.felicidad    .bar-fill { background-color: var(--c-felicidad); }
 .bar.calma        .bar-fill { background-color: var(--c-calma); }
 .bar.motivacion   .bar-fill { background-color: var(--c-motivacion); }
 .bar.estres       .bar-fill { background-color: var(--c-estres); }
 .bar.ansiedad     .bar-fill { background-color: var(--c-ansiedad); }
 .bar.energia      .bar-fill { background-color: var(--c-energia); }
-.bar.concentracion.bar-fill { background-color: var(--c-concentracion); }
+
+.bar.concentracion .bar-fill { background-color: var(--c-concentracion); }
 .bar.creatividad  .bar-fill { background-color: var(--c-creatividad); }
 
 /* Botón compartir */
