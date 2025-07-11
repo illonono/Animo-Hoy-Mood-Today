@@ -313,7 +313,7 @@
     
   <!-- JavaScript -->
   <script>
-    function getRandomBars(min = 30, max = 85) {
+    function getRandomBars(min = 0, max = 100) {
       return Array.from({ length: 8 }, () =>
         Math.floor(Math.random() * (max - min + 1)) + min
       );
@@ -325,7 +325,7 @@
         const v = randomBars[i];
         bar.setAttribute('data-value', v);
         const fill = bar.querySelector('.bar-fill');
-        fill.style.height = v + '%';
+        fill.style.maxHeight = v + '%';
         fill.textContent = v + '%';
       });
     });
