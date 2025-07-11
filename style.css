@@ -246,7 +246,7 @@ footer a {
 }
 .modal-content h2 {
   margin-bottom: 1rem;
-  color: var(--color-important);
+  color: var(--color-footer);
 }
 .share-chart {
   display: flex;
