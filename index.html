@@ -319,16 +319,25 @@
       );
     }
 
-    document.getElementById('citySelector').addEventListener('change', e => {
-      const randomBars = getRandomBars();
-      document.querySelectorAll('.bar').forEach((bar, i) => {
-        const v = randomBars[i];
-        bar.setAttribute('data-value', v);
-        const fill = bar.querySelector('.bar-fill');
-        fill.style.height = v + '%';
-        fill.textContent = v + '%';
-      });
-    });
+document.getElementById('citySelector').addEventListener('change', e => {
+  const randomBars = getRandomBars();
+  document.querySelectorAll('.bar').forEach((bar, i) => {
+    const v = randomBars[i];
+    bar.setAttribute('data-value', v);
+    const fill = bar.querySelector('.bar-fill');
+
+    // Reinicia la altura para animar desde cero
+    fill.style.height = '0%';
+    fill.textContent = '0%';
+
+    // Asigna nuevo valor después de un breve retardo (permite la transición)
+    setTimeout(() => {
+      fill.style.height = v + '%';
+      fill.textContent = v + '%';
+    }, 100);
+  });
+});
+
 
     function openModal() {
       const chart = document.getElementById('shareChart');
