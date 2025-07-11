@@ -55,15 +55,16 @@ header h1 {
 }
 
 .nav__list {
-  list-style-type: disc; /* usa ● */
+  list-style-type: disc;              
   list-style-position: inside;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding-left: 0;
+  display: flex;                     
+  gap: 2rem;                          
+  justify-content: center;           
+  align-items: center;               
+  padding: 0;
   margin: 0;
-  align-items: flex-start;
 }
+
 
 .nav__item {
   font-family: 'IM Fell English', serif;
