@@ -82,7 +82,6 @@ header h1 {
 
 main {
   flex-grow: 1;
-  background: rgba(0, 255, 0, 0.1); /* solo para pruebas */
 }
 
 /* Selector y traductor */
