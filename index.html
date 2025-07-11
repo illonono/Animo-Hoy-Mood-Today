@@ -45,10 +45,23 @@
   <!-- html2canvas para capturas -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
-
   
 <body>
-  <header>
+  <header class="header">
+    <div class="header__inner">
+      <h1 class="header__logo">Ánimo Hoy – Mood Today</h1>
+      <nav class="header__nav">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="#home" class="nav__link">Inicio</a></li>
+          <li class="nav__item"><a href="#seleccion" class="nav__link">Emociones</a></li>
+          <li class="nav__item"><a href="#footer" class="nav__link">Acerca</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <main class="main">
+    <section id="home" class="hero">
     <h1>Ánimo Hoy - Mood Today</h1>
     <h2>Descubre tus matices de ánimo hoy dependiendo del clima en dónde vives</h2>
     <div class="selector">
@@ -217,12 +230,13 @@
         <option value="zagreb">Zagreb (Croacia)</option>
       </select>
     </div>
-  </header>
-  
+  </section>
+
   <div class="main-content">
     <div id="google_translate_element"></div>
     <div class="mood-background"></div>
 
+  <section id="seleccion" class="mood">
 <div class="chart-grid">
   <!-- Input + label + barra (por cada emoción) -->
   <div class="item">
@@ -274,6 +288,7 @@
   </div>
 </div>
 
+    
 <!-- Botón -->
 <button class="share-btn">Compartir mi estado</button>
 
@@ -288,6 +303,15 @@
     </div>
   </div>
 
+</section>
+    <footer id="footer" class="footer">
+  <p class="footer__text">© 2025 Ánimo Hoy. Herramienta Mood Today para pronósticos emocionales basados en colores.</p>
+  <p class="footer__credit">Desarrollado por IllonoNo • Investigación en psicología del color aplicada.</p>
+</footer>
+
+
+
+    
   <!-- JavaScript -->
   <script>
     function getRandomBars(min = 30, max = 85) {
@@ -360,5 +384,4 @@
     src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
   </script>
 
-</body>
-</html>
+  </body></html>
