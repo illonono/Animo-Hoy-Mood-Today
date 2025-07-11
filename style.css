@@ -81,6 +81,9 @@ header h1 {
   color: var(--color-title);
 }
 
+main {
+  flex-grow: 1;
+}
 
 /* Selector y traductor */
 .selector select {
