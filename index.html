@@ -326,15 +326,18 @@ document.getElementById('citySelector').addEventListener('change', () => {
     const v = randomBars[i];
     const fill = bar.querySelector('.bar-fill');
 
+    // Reinicia animación
+    fill.style.height = '0%';
+    fill.textContent = '';
+    fill.style.opacity = '0';
 
-    fill.style.height = '6px';  
-    fill.textContent = '0%';
-
-  
     setTimeout(() => {
-      const visualHeight = Math.max(v, 6); 
-      fill.style.height = visualHeight + '%';
+      // Aplica altura real (mínimo visual 4px, pero sin falsear el número)
+      const pixelMinimo = '4px';
+      const porcentajeReal = v + '%';
+      fill.style.height = v < 4 ? pixelMinimo : porcentajeReal;
       fill.textContent = v + '%';
+      fill.style.opacity = '1';
       bar.setAttribute('data-value', v);
     }, 100);
   });
