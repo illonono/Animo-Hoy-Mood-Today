@@ -333,7 +333,7 @@ document.getElementById('citySelector').addEventListener('change', () => {
 
     setTimeout(() => {
       // Aplica altura real (mínimo visual 4px, pero sin falsear el número)
-      const pixelMinimo = '4px';
+      const pixelMinimo = '14px';
       const porcentajeReal = v + '%';
       fill.style.height = v < 4 ? pixelMinimo : porcentajeReal;
       fill.textContent = v + '%';
