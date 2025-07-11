@@ -319,24 +319,27 @@
       );
     }
 
-document.getElementById('citySelector').addEventListener('change', e => {
+document.getElementById('citySelector').addEventListener('change', () => {
   const randomBars = getRandomBars();
+
   document.querySelectorAll('.bar').forEach((bar, i) => {
     const v = randomBars[i];
-    bar.setAttribute('data-value', v);
     const fill = bar.querySelector('.bar-fill');
 
-    // Reinicia animación
-    fill.style.height = '0%';
+
+    fill.style.height = '4px';  
     fill.textContent = '0%';
 
+  
     setTimeout(() => {
-      const height = v < 5 ? '4px' : v + '%';
-      fill.style.height = height;
+      const visualHeight = Math.max(v, 4); 
+      fill.style.height = visualHeight + '%';
       fill.textContent = v + '%';
+      bar.setAttribute('data-value', v);
     }, 100);
   });
 });
+
 
     function openModal() {
       const chart = document.getElementById('shareChart');
