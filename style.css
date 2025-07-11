@@ -128,9 +128,10 @@ input[type="radio"]:checked + label {
   overflow: hidden;
 }
 .bar-fill {
-  width: 80%;
-  min-height: 4px;            
-  transition: height 0.4s ease-in-out;
+  height: auto;
+  max-height: 100%;
+  min-height: 4px;        
+  transition: max-height 0.4s ease-in-out;
   border-radius: 0.5rem 0.5rem 0 0;
   display: flex;
   align-items: flex-end;
@@ -139,6 +140,7 @@ input[type="radio"]:checked + label {
   font-weight: bold;
   color: white;
 }
+
 
 .bar.felicidad    .bar-fill { background-color: var(--c-felicidad); }
 .bar.calma        .bar-fill { background-color: var(--c-calma); }
