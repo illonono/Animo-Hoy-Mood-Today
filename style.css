@@ -25,6 +25,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'IM Fell English', serif;
   background-color: var(--color-bg);
@@ -207,6 +212,27 @@ input[type="radio"]:checked + label {
 .panel-derecha {
   right: -120px;
   background-image: url('ruta-a-tu-imagen-derecha.jpg');
+}
+
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.nav__list {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav__link {
+  text-decoration: none;
+  color: #e6edf3; /* o el color que estés usando en tu diseño */
+  font-weight: bold;
 }
 
 /* Colores */
