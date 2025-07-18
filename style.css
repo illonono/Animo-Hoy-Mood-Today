@@ -205,13 +205,13 @@ input[type="radio"]:checked + label {
 /* Izquierda */
 .panel-izquierda {
   left: -120px; /* fuera del wrapper */
-  background-image: url('ruta-a-tu-imagen-izquierda.jpg');
+  background-image: url("multiverso-curioso.jpg");
 }
 
 /* Derecha */
 .panel-derecha {
   right: -120px;
-  background-image: url('ruta-a-tu-imagen-derecha.jpg');
+  background-image: url("espectro-emocional.jpg");
 }
 
 .header__inner {
