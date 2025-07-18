@@ -185,35 +185,51 @@ input[type="radio"]:checked + label {
 }
 
 
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden; /* 🔒 Previene scroll horizontal */
+  background-color: #0d1117;
+  color: #e6edf3;
+  font-family: 'Segoe UI', sans-serif;
+}
+
 .wrapper {
   position: relative;
   max-width: 800px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 
+/* Paneles laterales */
 .panel-lateral {
-  position: absolute;
+  position: fixed; /* 🧲 Se fija a los lados sin empujar el contenido */
   top: 0;
-  width: 100px; /* puedes ajustar */
-  height: 100%;
+  width: 80px; /* 📐 Ajusta según necesites */
+  height: 100vh; /* 🔽 Abarca todo el alto visible */
   background-size: cover;
   background-position: center;
   z-index: -1;
-  opacity: 0.6; /* o lo que prefieras para no distraer */
+  opacity: 0.4;
+  pointer-events: none; /* 🧼 No interfiere con clics */
 }
 
 /* Izquierda */
 .panel-izquierda {
-  left: -120px; /* fuera del wrapper */
+  left: 0;
   background-image: url("multiverso-curioso.jpg");
 }
 
 /* Derecha */
 .panel-derecha {
-  right: -120px;
+  right: 0;
   background-image: url("espectro-emocional.jpg");
 }
 
+/* Navegación y encabezado */
 .header__inner {
   display: flex;
   justify-content: space-between;
@@ -231,9 +247,10 @@ input[type="radio"]:checked + label {
 
 .nav__link {
   text-decoration: none;
-  color: #e6edf3; /* o el color que estés usando en tu diseño */
+  color: #e6edf3;
   font-weight: bold;
 }
+
 
 /* Colores */
 .bar.felicidad .bar-fill    { background-color: var(--c-felicidad); }
