@@ -180,6 +180,35 @@ input[type="radio"]:checked + label {
 }
 
 
+.wrapper {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.panel-lateral {
+  position: absolute;
+  top: 0;
+  width: 100px; /* puedes ajustar */
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  opacity: 0.6; /* o lo que prefieras para no distraer */
+}
+
+/* Izquierda */
+.panel-izquierda {
+  left: -120px; /* fuera del wrapper */
+  background-image: url('ruta-a-tu-imagen-izquierda.jpg');
+}
+
+/* Derecha */
+.panel-derecha {
+  right: -120px;
+  background-image: url('ruta-a-tu-imagen-derecha.jpg');
+}
+
 /* Colores */
 .bar.felicidad .bar-fill    { background-color: var(--c-felicidad); }
 .bar.calma .bar-fill        { background-color: var(--c-calma); }
