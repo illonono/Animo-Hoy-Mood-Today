@@ -180,84 +180,6 @@ input[type="radio"]:checked + label {
   padding-top: 2px;
   box-sizing: border-box;
 }
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  overflow-x: hidden;
-  background-color: #0d1117;
-  color: #e6edf3;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-.wrapper {
-  position: relative;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 20px;
-  z-index: 1;
-}
-
-/* Paneles laterales decorativos */
-.panel-lateral {
-  position: fixed;
-  top: 0;
-  width: 80px;
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  z-index: 0;
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-/* Izquierda */
-.panel-izquierda {
-  left: 0;
-  background-image: url("multiverso-curioso.jpg");
-}
-
-/* Derecha */
-.panel-derecha {
-  right: 0;
-  background-image: url("espectro-emocional.jpg");
-}
-
-/* Encabezado y navegación */
-.header__inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.nav__list {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.nav__link {
-  text-decoration: none;
-  color: #e6edf3;
-  font-weight: bold;
-}
-
-/* 🔁 RESPONSIVE: Ocultar paneles en pantallas pequeñas */
-@media screen and (max-width: 850px) {
-  .panel-lateral {
-    display: none;
-  }
-
-  .wrapper {
-    padding: 0 10px;
-  }
-}
-
 
 /* Colores */
 .bar.felicidad .bar-fill    { background-color: var(--c-felicidad); }
@@ -363,4 +285,36 @@ footer a {
 }
 @media (max-width: 480px) {
   .chart-grid { grid-template-columns: repeat(2,1fr); }
+}
+
+/* Paneles laterales decorativos */
+.panel-lateral {
+  position: fixed;
+  top: 0;
+  width: 80px;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Izquierda */
+.panel-izquierda {
+  left: 0;
+  background-image: url("multiverso-curioso.jpg");
+}
+
+/* Derecha */
+.panel-derecha {
+  right: 0;
+  background-image: url("espectro-emocional.jpg");
+}
+
+/* Responsive: Ocultar paneles en pantallas pequeñas */
+@media screen and (max-width: 850px) {
+  .panel-lateral {
+    display: none;
+  }
 }
