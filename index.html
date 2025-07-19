@@ -47,24 +47,25 @@
 </head>
   
 <body>
+  <!-- Panel izquierdo (columna 1) -->
   <div class="panel-lateral panel-izquierda"></div>
-  <div class="panel-lateral panel-derecha"></div>
 
-  <header class="header">
-    <div class="wrapper">
-      <div class="header__inner">
-        <h1 class="header__logo">Ánimo Hoy – Mood Today</h1>
-        <nav class="header__nav">
-          <ul class="nav__list">
-            <li class="nav__item"><a href="#home" class="nav__link">Inicio</a></li>
-            <li class="nav__item"><a href="#seleccion" class="nav__link">Emociones</a></li>
-            <li class="nav__item"><a href="#footer" class="nav__link">Acerca</a></li>
-          </ul>
-        </nav>
+  <!-- Contenido central (columna 2) -->
+  <div class="contenido-central">
+    <header class="header">
+      <div class="wrapper">
+        <div class="header__inner">
+          <h1 class="header__logo">Ánimo Hoy – Mood Today</h1>
+          <nav class="header__nav">
+            <ul class="nav__list">
+              <li class="nav__item"><a href="#home" class="nav__link">Inicio</a></li>
+              <li class="nav__item"><a href="#seleccion" class="nav__link">Emociones</a></li>
+              <li class="nav__item"><a href="#footer" class="nav__link">Acerca</a></li>
+            </ul>
+          </nav>
+        </div>
       </div>
-    </div>
-  </header>
-
+    </header>
   
   <main class="main">
     <section id="home" class="hero">
@@ -403,5 +404,10 @@ document.getElementById('citySelector').addEventListener('change', () => {
     type="text/javascript" 
     src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
   </script>
+    
+  </div>
 
-  </body></html>
+  <!-- Panel derecho (columna 3) -->
+  <div class="panel-lateral panel-derecha"></div>
+  </body>
+  </html>
