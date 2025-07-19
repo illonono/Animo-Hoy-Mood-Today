@@ -34,7 +34,6 @@ body {
   font-family: 'IM Fell English', serif;
   background-color: var(--color-bg);
   color: var(--color-text-button);
-  padding: 1rem;
 }
 
 .contenido-central {
@@ -303,6 +302,8 @@ footer a {
   opacity: 0.3;
   pointer-events: none;
   z-index: 0;
+  height: 100%;
+  min-height: 100vh;
 }
 
 .panel-izquierda {
@@ -319,6 +320,7 @@ footer a {
   z-index: 1000; /* actualmente es 999 */
 }
 main, header {
+  width: 100%;
   z-index: 1;
   position: relative;
 }
