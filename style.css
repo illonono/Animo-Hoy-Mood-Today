@@ -311,6 +311,13 @@ footer a {
   right: 0;
   background-image: url("espectro-emocional.jpg");
 }
+.modal {
+  z-index: 1000; /* actualmente es 999 */
+}
+main, header {
+  z-index: 1;
+  position: relative;
+}
 
 /* Responsive: Ocultar paneles en pantallas pequeñas */
 @media screen and (max-width: 850px) {
