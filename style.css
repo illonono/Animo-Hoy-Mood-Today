@@ -325,3 +325,76 @@ main, header {
     display: none;
   }
 }
+
+/* Asegura que el body no recorte los paneles */
+body {
+  position: relative;
+  overflow-x: hidden;
+  background-color: #0d1117;
+  color: #e6edf3;
+  margin: 0;
+  padding: 0;
+}
+
+/* Paneles laterales */
+.panel-lateral {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  opacity: 0.6;
+  pointer-events: none; /* No bloquean clics */
+}
+
+/* Panel izquierdo */
+.panel-izquierda {
+  left: 0;
+  background-image: url("multiverso-curioso.jpg");
+}
+
+/* Panel derecho */
+.panel-derecha {
+  right: 0;
+  background-image: url("espectro-emocional.jpg");
+}
+
+/* Contenedor principal */
+.wrapper {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+  z-index: 1;
+}
+
+/* Elementos por encima de los paneles */
+main, header {
+  z-index: 1;
+  position: relative;
+  background-color: transparent;
+}
+
+/* Menú horizontal */
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.nav__list {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav__link {
+  text-decoration: none;
+  color: #e6edf3;
+  font-weight: bold;
+}
