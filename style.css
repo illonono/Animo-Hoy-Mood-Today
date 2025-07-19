@@ -1,4 +1,7 @@
-/* Variables globales (colores iniciales) */
+/* ============================
+   🎨 Estilos Completos Ajustados
+   ============================ */
+
 :root {
   --color-title: #FF4C61;
   --color-important: #E69E4E;
@@ -8,7 +11,6 @@
   --color-button-text: #FFFFFF;
   --color-footer: #724A1F;
 
-  /* Colores por matiz */
   --c-felicidad:     #FF4C61;
   --c-calma:         #4C6EFF;
   --c-motivacion:    #FFD24C;
@@ -19,55 +21,65 @@
   --c-creatividad:   #8C5A32;
 }
 
-/* Reset y tipografía */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-
 body {
   font-family: 'IM Fell English', serif;
-  background-color: var(--color-bg);
+  background-color: #0d1117; /* fondo oscuro para paneles */
   color: var(--color-text-button);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 0;
+  overflow-x: hidden;
+  position: relative;
 }
 
-/* Header */
-header {
+.wrapper {
+  background-color: var(--color-bg); /* fondo gris central */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+  position: relative;
+  z-index: 1;
+  border-radius: 0.5rem;
+}
+
+header,
+main,
+footer {
   width: 100%;
   max-width: 800px;
-  text-align: center;
-  margin-bottom: 2rem;
+  margin: 0 auto;
+  z-index: 1;
+  position: relative;
 }
+
 header h1 {
   color: var(--color-title);
   font-size: 2.5rem;
   animation: palpitar 2s infinite ease-in-out;
+  text-align: center;
+  margin-bottom: 0.5rem;
 }
 
 .header__nav {
-  margin-top: 0.5rem;
   display: flex;
   justify-content: center;
   margin-bottom: 1.2rem;
 }
 
 .nav__list {
-  list-style-type: disc;              
-  list-style-position: inside;
-  display: flex;                     
-  gap: 2rem;                          
-  justify-content: center;           
-  align-items: center;               
-  padding: 0;
-  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
 }
-
 
 .nav__item {
   font-family: 'IM Fell English', serif;
@@ -84,17 +96,6 @@ header h1 {
   color: var(--color-title);
 }
 
-main {
-  flex-grow: 1;
-}
-
-main, header {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-/* Selector y traductor */
 .selector select {
   padding: 0.5rem 1rem;
   margin-bottom: 0.5rem;
@@ -105,6 +106,7 @@ main, header {
   font-size: 1rem;
   cursor: pointer;
 }
+
 #google_translate_element {
   padding: 0.5rem 1rem;
   background: rgba(255,255,255,0.06);
@@ -114,16 +116,14 @@ main, header {
   display: inline-flex;
 }
 
-/* Grid para etiquetas y barras */
 .chart-grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   gap: 0.75rem;
-  width: 100%;
-  max-width: 800px;
   justify-items: center;
   margin-bottom: 2rem;
 }
+
 .item {
   display: flex;
   flex-direction: column;
@@ -131,12 +131,10 @@ main, header {
   gap: 1rem;
 }
 
-/* Ocultar radios */
 input[type="radio"] {
   display: none;
 }
 
-/* Estilos de las etiquetas */
 label {
   font-weight: bold;
   color: var(--color-important);
@@ -148,6 +146,7 @@ label {
   transition: background 0.3s;
   animation: palpitarBoton 4s infinite ease-in-out;
 }
+
 input[type="radio"]:checked + label {
   background-color: var(--color-important);
   color: var(--color-button-text);
@@ -160,7 +159,6 @@ input[type="radio"]:checked + label {
   flex-direction: column-reverse;
   align-items: center;
   justify-content: flex-end;
-  position: relative;
   overflow: hidden;
 }
 
@@ -169,30 +167,23 @@ input[type="radio"]:checked + label {
   height: 0%;
   transition: height 1s ease-in-out;
   border-radius: 0.5rem 0.5rem 0 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
   font-size: 0.85rem;
   font-weight: bold;
   color: white;
   opacity: 0;
   min-height: 14px;
   padding-top: 2px;
-  box-sizing: border-box;
 }
 
-/* Colores */
 .bar.felicidad .bar-fill    { background-color: var(--c-felicidad); }
 .bar.calma .bar-fill        { background-color: var(--c-calma); }
 .bar.motivacion .bar-fill   { background-color: var(--c-motivacion); }
 .bar.estres .bar-fill       { background-color: var(--c-estres); }
 .bar.ansiedad .bar-fill     { background-color: var(--c-ansiedad); }
 .bar.energia .bar-fill      { background-color: var(--c-energia); }
-
 .bar.concentracion .bar-fill { background-color: var(--c-concentracion); }
 .bar.creatividad .bar-fill  { background-color: var(--c-creatividad); }
 
-/* Botón compartir */
 .share-btn {
   margin: 2rem 0 1rem;
   padding: 0.75rem 2rem;
@@ -201,17 +192,12 @@ input[type="radio"]:checked + label {
   border: none;
   border-radius: 2rem;
   cursor: pointer;
-  font-family: inherit;
 }
 
-/* Footer */
 footer {
   text-align: center;
   color: var(--color-footer);
   font-size: 0.9rem;
-  line-height: 1.4;
-  width: 100%;
-  max-width: 800px;
   margin: 2rem auto 0; 
 }
 
@@ -220,7 +206,6 @@ footer a {
   text-decoration: underline;
 }
 
-/* Modal */
 .modal {
   position: fixed;
   inset: 0;
@@ -228,7 +213,7 @@ footer a {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 1000;
   padding: 1rem;
 }
 .modal.hidden {
@@ -239,7 +224,6 @@ footer a {
   padding: 2rem;
   border-radius: 1rem;
   text-align: center;
-  font-family: inherit;
   width: 90%;
   max-width: 360px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.25);
@@ -249,6 +233,7 @@ footer a {
   margin-bottom: 1rem;
   color: var(--color-footer);
 }
+
 .share-chart {
   display: flex;
   flex-direction: column;
@@ -258,7 +243,6 @@ footer a {
 .share-bar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   font-weight: bold;
   color: var(--color-text-button);
 }
@@ -269,7 +253,6 @@ footer a {
   margin-left: 0.5rem;
 }
 
-/* Animaciones */
 @keyframes palpitar {
   0%,100% { transform: scale(1) }
   50%     { transform: scale(1.03) }
@@ -279,49 +262,38 @@ footer a {
   50%     { transform: scale(1.03) }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .chart-grid { grid-template-columns: repeat(4,1fr); }
-}
-@media (max-width: 480px) {
-  .chart-grid { grid-template-columns: repeat(2,1fr); }
-}
-
-/* Paneles laterales decorativos */
+/* Paneles laterales */
 .panel-lateral {
   position: fixed;
   top: 0;
-  width: 80px;
-  height: 100vh;
+  bottom: 0;
+  width: 110px;
   background-size: cover;
   background-position: center;
   z-index: 0;
-  opacity: 0.3;
+  opacity: 0.4;
   pointer-events: none;
 }
-
-/* Izquierda */
 .panel-izquierda {
   left: 0;
   background-image: url("multiverso-curioso.jpg");
 }
-
-/* Derecha */
 .panel-derecha {
   right: 0;
   background-image: url("espectro-emocional.jpg");
 }
-.modal {
-  z-index: 1000; /* actualmente es 999 */
-}
-main, header {
-  z-index: 1;
-  position: relative;
-}
 
-/* Responsive: Ocultar paneles en pantallas pequeñas */
-@media screen and (max-width: 850px) {
+@media (max-width: 850px) {
   .panel-lateral {
     display: none;
+  }
+  .chart-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
