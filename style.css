@@ -28,13 +28,22 @@
 
 
 body {
+  display: grid;
+  grid-template-columns: 80px 1fr 80px;
+  min-height: 100vh;
   font-family: 'IM Fell English', serif;
   background-color: var(--color-bg);
   color: var(--color-text-button);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   padding: 1rem;
+}
+
+.contenido-central {
+  grid-column: 2;  /* Columna del centro */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+  z-index: 1;
+  position: relative;
 }
 
 /* Header */
@@ -289,28 +298,23 @@ footer a {
 
 /* Paneles laterales decorativos */
 .panel-lateral {
-  position: fixed;
-  top: 0;
-  width: 80px;
-  height: 100vh;
   background-size: cover;
   background-position: center;
-  z-index: 0;
   opacity: 0.3;
   pointer-events: none;
+  z-index: 0;
 }
 
-/* Izquierda */
 .panel-izquierda {
-  left: 0;
+  grid-column: 1;
   background-image: url("multiverso-curioso.jpg");
 }
 
-/* Derecha */
 .panel-derecha {
-  right: 0;
+  grid-column: 3;
   background-image: url("espectro-emocional.jpg");
 }
+
 .modal {
   z-index: 1000; /* actualmente es 999 */
 }
