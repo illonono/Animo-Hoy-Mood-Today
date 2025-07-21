@@ -297,7 +297,7 @@ footer a {
 
 /* Paneles laterales decorativos */
 .panel-lateral {
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   opacity: 0.3;
   pointer-events: none;
@@ -317,7 +317,7 @@ footer a {
 }
 
 .modal {
-  z-index: 1000; /* actualmente es 999 */
+  z-index: 1000; 
 }
 main, header {
   width: 100%;
@@ -325,7 +325,7 @@ main, header {
   position: relative;
 }
 
-/* Responsive: Ocultar paneles en pantallas pequeñas */
+
 @media screen and (max-width: 850px) {
   .panel-lateral {
     display: none;
