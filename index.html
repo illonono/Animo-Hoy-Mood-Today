@@ -67,9 +67,10 @@
   <main class="main">
     <section id="home" class="hero">
     <h2>Descubre tus matices de ánimo hoy dependiendo del clima en dónde vives</h2>
+      
     <div class="selector">
+      <input list="cityList" id="citySelector" placeholder="¿De dónde eres?" />
       <select id="citySelector">
-        <option disabled selected>¿De dónde eres?</option>
         <option value="abidjan">Abu Dabi (Emiratos Árabes Unidos)</option>
         <option value="accra">Acra (Ghana)</option>
         <option value="addis-abeba">Adís Abeba (Etiopía)</option>
@@ -408,5 +409,6 @@ document.getElementById('citySelector').addEventListener('change', () => {
   <div class="panel-lateral panel-derecha"></div>
   </body>
   </html>
+
 
 
