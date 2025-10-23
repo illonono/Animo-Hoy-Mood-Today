@@ -320,47 +320,66 @@
 
     
   <!-- JavaScript -->
-  <script>
-    function getRandomBars(min = 0, max = 100) {
-      return Array.from({ length: 8 }, () =>
-        Math.floor(Math.random() * (max - min + 1)) + min
-      );
+<script>
+  function getRandomBars(min = 0, max = 100) {
+    return Array.from({ length: 8 }, () =>
+      Math.floor(Math.random() * (max - min + 1)) + min
+    );
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const cityInput = document.getElementById('citySelector');
+    const shareBtn = document.querySelector('.share-btn');
+
+    // función que aplica los valores aleatorios a las barras
+    function applyRandomBars() {
+      const randomBars = getRandomBars();
+      document.querySelectorAll('.bar').forEach((bar, i) => {
+        const v = randomBars[i];
+        const fill = bar.querySelector('.bar-fill');
+
+        // Reinicia animación
+        fill.style.height = '0%';
+        fill.textContent = '';
+        fill.style.opacity = '0';
+
+        setTimeout(() => {
+          const pixelMinimo = '14px';
+          const porcentajeReal = v + '%';
+          fill.style.height = v < 4 ? pixelMinimo : porcentajeReal;
+          fill.textContent = v + '%';
+          fill.style.opacity = '1';
+          bar.setAttribute('data-value', v);
+        }, 100);
+      });
     }
 
-document.getElementById('citySelector').addEventListener('change', () => {
-  const randomBars = getRandomBars();
+    // Listener: usar 'input' detecta escritura y selección desde datalist
+    if (cityInput) {
+      cityInput.addEventListener('input', () => {
+        // opcional: ignorar entradas vacías
+        if (!cityInput.value || cityInput.value.trim() === '') return;
+        applyRandomBars();
+      });
 
-  document.querySelectorAll('.bar').forEach((bar, i) => {
-    const v = randomBars[i];
-    const fill = bar.querySelector('.bar-fill');
+      // Si quieres disparar también cuando se pierde el foco y hay valor:
+      cityInput.addEventListener('change', () => {
+        if (!cityInput.value || cityInput.value.trim() === '') return;
+        applyRandomBars();
+      });
+    }
 
-    // Reinicia animación
-    fill.style.height = '0%';
-    fill.textContent = '';
-    fill.style.opacity = '0';
-
-    setTimeout(() => {
-      // Aplica altura real (mínimo visual 4px, pero sin falsear el número)
-      const pixelMinimo = '14px';
-      const porcentajeReal = v + '%';
-      fill.style.height = v < 4 ? pixelMinimo : porcentajeReal;
-      fill.textContent = v + '%';
-      fill.style.opacity = '1';
-      bar.setAttribute('data-value', v);
-    }, 100);
-  });
-});
-
-
+    // modal / compartir (defensas por si no existe)
     function openModal() {
       const chart = document.getElementById('shareChart');
+      if (!chart) return;
       chart.innerHTML = '';
 
       document.querySelectorAll('.bar').forEach(bar => {
-        const mood = bar.classList[1];
-        const value = bar.getAttribute('data-value');
-        const color = getComputedStyle(document.documentElement)
-          .getPropertyValue('--c-' + mood);
+        const mood = bar.classList[1] || 'mood';
+        const value = bar.getAttribute('data-value') || 0;
+        const colorVar = '--c-' + mood;
+        const color = getComputedStyle(document.documentElement).getPropertyValue(colorVar) || '#999';
 
         const wrapper = document.createElement('div');
         wrapper.className = 'share-bar';
@@ -371,15 +390,19 @@ document.getElementById('citySelector').addEventListener('change', () => {
         chart.appendChild(wrapper);
       });
 
-      document.getElementById('share-modal').classList.remove('hidden');
+      const modal = document.getElementById('share-modal');
+      if (modal) modal.classList.remove('hidden');
     }
 
     function closeModal() {
-      document.getElementById('share-modal').classList.add('hidden');
+      const modal = document.getElementById('share-modal');
+      if (modal) modal.classList.add('hidden');
     }
 
     function downloadImage() {
-      html2canvas(document.querySelector('.modal-content')).then(canvas => {
+      const target = document.querySelector('.modal-content');
+      if (!target || !window.html2canvas) return;
+      html2canvas(target).then(canvas => {
         const link = document.createElement('a');
         link.download = 'estado-animo.png';
         link.href = canvas.toDataURL();
@@ -387,22 +410,27 @@ document.getElementById('citySelector').addEventListener('change', () => {
       });
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      document.querySelector('.share-btn').addEventListener('click', openModal);
+    if (shareBtn) shareBtn.addEventListener('click', openModal);
+    // botones del modal (delegación simple)
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('#share-modal button') && e.target.textContent.includes('Cerrar')) closeModal();
+      if (e.target.matches('#share-modal button') && e.target.textContent.includes('Descargar')) downloadImage();
     });
-  </script>
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'es',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLEw
-      }, 'google_translate_element');
-    }
-  </script>
-  <script 
-    type="text/javascript" 
-    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-  </script>
+
+  }); // fin DOMContentLoaded
+</script>
+
+<!-- corregir google translate init (sin 'w' extra) -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'es',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
     
   </div>
 
@@ -410,6 +438,7 @@ document.getElementById('citySelector').addEventListener('change', () => {
   <div class="panel-lateral panel-derecha"></div>
   </body>
   </html>
+
 
 
 
