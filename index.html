@@ -298,15 +298,18 @@
 <button class="share-btn">Compartir mi estado</button>
 
 
-  <!-- Modal para compartir -->
-  <div id="share-modal" class="modal hidden">
-    <div class="modal-content">
-      <h2>Mi pronóstico emocional de hoy</h2>
-      <div class="share-chart" id="shareChart"></div>
-      <button onclick="downloadImage()">Descargar imagen</button>
-      <button onclick="closeModal()">Cerrar</button>
+<!-- Modal para compartir -->
+<div id="share-modal" class="modal hidden" role="dialog" aria-hidden="true" aria-labelledby="share-modal-title">
+  <div class="modal-content">
+    <h2 id="share-modal-title">Mi pronóstico emocional de hoy</h2>
+    <div class="share-chart" id="shareChart" aria-live="polite"></div>
+
+    <div class="modal-buttons" style="margin-top:1rem; display:flex; gap:0.5rem; justify-content:center;">
+      <button type="button" data-action="download" class="modal-btn">Descargar imagen</button>
+      <button type="button" data-action="close" class="modal-btn">Cerrar</button>
     </div>
   </div>
+</div>
 
 </section>
   </main>
@@ -438,6 +441,7 @@
   <div class="panel-lateral panel-derecha"></div>
   </body>
   </html>
+
 
 
 
