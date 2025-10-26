@@ -330,9 +330,32 @@
     );
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+    function debounce(fn, wait = 300) {
+    let t;
+    return function(...args) {
+      clearTimeout(t);
+      t = setTimeout(() => fn.apply(this, args), wait);
+    };
+  }
+  
+  window.addEventListener('DOMContentLoaded', () => {
     const cityInput = document.getElementById('citySelector');
-    const shareBtn = document.querySelector('.share-btn');
+    document.querySelector('.share-btn').addEventListener('click', openModal);
+  
+    if (cityInput) {
+      const debouncedApply = debounce(() => {
+        if (!cityInput.value || cityInput.value.trim() === '') return;
+        applyRandomBars();
+      }, 400); // puedes ajustar el tiempo si quieres
+  
+      cityInput.addEventListener('input', debouncedApply);
+  
+      // opcional: mantener change por si se selecciona con Enter o clic
+      cityInput.addEventListener('change', () => {
+        if (!cityInput.value || cityInput.value.trim() === '') return;
+        applyRandomBars();
+      });
+    }
 
     // función que aplica los valores aleatorios a las barras
     function applyRandomBars() {
@@ -372,6 +395,29 @@
       });
     }
 
+
+        function applyRandomBars() {
+      const randomBars = getRandomBars();
+    
+      document.querySelectorAll('.bar').forEach((bar, i) => {
+        const v = randomBars[i];
+        const fill = bar.querySelector('.bar-fill');
+    
+        fill.style.height = '0%';
+        fill.textContent = '';
+        fill.style.opacity = '0';
+    
+        setTimeout(() => {
+          const pixelMinimo = '14px';
+          const porcentajeReal = v + '%';
+          fill.style.height = v < 4 ? pixelMinimo : porcentajeReal;
+          fill.textContent = v + '%';
+          fill.style.opacity = '1';
+          bar.setAttribute('data-value', v);
+        }, 100);
+      });
+    }
+    
     // modal / compartir (defensas por si no existe)
     function openModal() {
       const chart = document.getElementById('shareChart');
@@ -441,6 +487,7 @@
   <div class="panel-lateral panel-derecha"></div>
   </body>
   </html>
+
 
 
 
