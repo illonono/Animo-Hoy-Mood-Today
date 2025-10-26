@@ -324,149 +324,145 @@
     
   <!-- JavaScript -->
 <script>
-  function getRandomBars(min = 0, max = 100) {
-    return Array.from({ length: 8 }, () =>
-      Math.floor(Math.random() * (max - min + 1)) + min
-    );
-  }
+/* ---------- UTILIDADES ---------- */
+function getRandomBars(min = 0, max = 100) {
+  return Array.from({ length: 8 }, () =>
+    Math.floor(Math.random() * (max - min + 1)) + min
+  );
+}
 
-    function debounce(fn, wait = 300) {
-    let t;
-    return function(...args) {
-      clearTimeout(t);
-      t = setTimeout(() => fn.apply(this, args), wait);
-    };
-  }
-  
-  window.addEventListener('DOMContentLoaded', () => {
-    const cityInput = document.getElementById('citySelector');
-    document.querySelector('.share-btn').addEventListener('click', openModal);
-  
-    if (cityInput) {
-      const debouncedApply = debounce(() => {
-        if (!cityInput.value || cityInput.value.trim() === '') return;
-        applyRandomBars();
-      }, 400); // puedes ajustar el tiempo si quieres
-  
-      cityInput.addEventListener('input', debouncedApply);
-  
-      // opcional: mantener change por si se selecciona con Enter o clic
-      cityInput.addEventListener('change', () => {
-        if (!cityInput.value || cityInput.value.trim() === '') return;
-        applyRandomBars();
-      });
-    }
+function debounce(fn, wait = 300) {
+  let t;
+  return function(...args) {
+    clearTimeout(t);
+    t = setTimeout(() => fn.apply(this, args), wait);
+  };
+}
 
-    // función que aplica los valores aleatorios a las barras
-    function applyRandomBars() {
-      const randomBars = getRandomBars();
-      document.querySelectorAll('.bar').forEach((bar, i) => {
-        const v = randomBars[i];
-        const fill = bar.querySelector('.bar-fill');
+/* aplica valores aleatorios a las barras (una sola definición, reutilizable) */
+function applyRandomBars() {
+  const randomBars = getRandomBars();
+  document.querySelectorAll('.bar').forEach((bar, i) => {
+    const v = randomBars[i] || 0;
+    const fill = bar.querySelector('.bar-fill');
+    if (!fill) return;
 
-        // Reinicia animación
-        fill.style.height = '0%';
-        fill.textContent = '';
-        fill.style.opacity = '0';
+    // Reinicia animación
+    fill.style.height = '0%';
+    fill.textContent = '';
+    fill.style.opacity = '0';
 
-        setTimeout(() => {
-          const pixelMinimo = '14px';
-          const porcentajeReal = v + '%';
-          fill.style.height = v < 4 ? pixelMinimo : porcentajeReal;
-          fill.textContent = v + '%';
-          fill.style.opacity = '1';
-          bar.setAttribute('data-value', v);
-        }, 100);
-      });
-    }
+    setTimeout(() => {
+      const pixelMinimo = '14px';
+      const porcentajeReal = v + '%';
+      fill.style.height = v < 4 ? pixelMinimo : porcentajeReal;
+      fill.textContent = v + '%';
+      fill.style.opacity = '1';
+      bar.setAttribute('data-value', v);
+    }, 100);
+  });
+}
 
-    // Listener: usar 'input' detecta escritura y selección desde datalist
-    if (cityInput) {
-      cityInput.addEventListener('input', () => {
-        // opcional: ignorar entradas vacías
-        if (!cityInput.value || cityInput.value.trim() === '') return;
-        applyRandomBars();
-      });
+/* ---------- MODAL: abrir / cerrar / descargar ---------- */
+function openModal() {
+  const chart = document.getElementById('shareChart');
+  if (!chart) return;
+  chart.innerHTML = '';
 
-      // Si quieres disparar también cuando se pierde el foco y hay valor:
-      cityInput.addEventListener('change', () => {
-        if (!cityInput.value || cityInput.value.trim() === '') return;
-        applyRandomBars();
-      });
-    }
+  document.querySelectorAll('.bar').forEach(bar => {
+    const mood = bar.classList[1] || 'mood';
+    const value = bar.getAttribute('data-value') || 0;
+    const colorVar = '--c-' + mood;
+    const color = getComputedStyle(document.documentElement).getPropertyValue(colorVar) || '#999';
 
+    const wrapper = document.createElement('div');
+    wrapper.className = 'share-bar';
+    wrapper.innerHTML = `
+      <span>${(mood.charAt(0).toUpperCase() + mood.slice(1)).replace(/^\w/, c => c)}</span>
+      <div style="display:flex; gap:0.5rem; align-items:center; width:70%;">
+        <div class="share-bar-fill" style="width:${value}%; background:${color}; height:1rem; border-radius:6px;"></div>
+        <strong style="min-width:45px; text-align:right;">${value}%</strong>
+      </div>
+    `;
+    chart.appendChild(wrapper);
+  });
 
-        function applyRandomBars() {
-      const randomBars = getRandomBars();
-    
-      document.querySelectorAll('.bar').forEach((bar, i) => {
-        const v = randomBars[i];
-        const fill = bar.querySelector('.bar-fill');
-    
-        fill.style.height = '0%';
-        fill.textContent = '';
-        fill.style.opacity = '0';
-    
-        setTimeout(() => {
-          const pixelMinimo = '14px';
-          const porcentajeReal = v + '%';
-          fill.style.height = v < 4 ? pixelMinimo : porcentajeReal;
-          fill.textContent = v + '%';
-          fill.style.opacity = '1';
-          bar.setAttribute('data-value', v);
-        }, 100);
-      });
-    }
-    
-    // modal / compartir (defensas por si no existe)
-    function openModal() {
-      const chart = document.getElementById('shareChart');
-      if (!chart) return;
-      chart.innerHTML = '';
+  const modal = document.getElementById('share-modal');
+  if (!modal) return;
+  modal.classList.remove('hidden');
+  modal.setAttribute('aria-hidden', 'false');
 
-      document.querySelectorAll('.bar').forEach(bar => {
-        const mood = bar.classList[1] || 'mood';
-        const value = bar.getAttribute('data-value') || 0;
-        const colorVar = '--c-' + mood;
-        const color = getComputedStyle(document.documentElement).getPropertyValue(colorVar) || '#999';
+  // foco accesible: intenta enfocar el primer botón accionable
+  const btnClose = modal.querySelector('[data-action="close"]');
+  if (btnClose) btnClose.focus();
 
-        const wrapper = document.createElement('div');
-        wrapper.className = 'share-bar';
-        wrapper.innerHTML = `
-          <span>${mood.charAt(0).toUpperCase() + mood.slice(1)}: ${value}%</span>
-          <div class="share-bar-fill" style="width:${value}%; background:${color}"></div>
-        `;
-        chart.appendChild(wrapper);
-      });
+  // Esc para cerrar
+  document.addEventListener('keydown', handleEscClose);
+}
 
-      const modal = document.getElementById('share-modal');
-      if (modal) modal.classList.remove('hidden');
-    }
+function closeModal() {
+  const modal = document.getElementById('share-modal');
+  if (!modal) return;
+  modal.classList.add('hidden');
+  modal.setAttribute('aria-hidden', 'true');
+  document.removeEventListener('keydown', handleEscClose);
+}
 
-    function closeModal() {
-      const modal = document.getElementById('share-modal');
-      if (modal) modal.classList.add('hidden');
-    }
+function handleEscClose(e) {
+  if (e.key === 'Escape') closeModal();
+}
 
-    function downloadImage() {
-      const target = document.querySelector('.modal-content');
-      if (!target || !window.html2canvas) return;
-      html2canvas(target).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'estado-animo.png';
-        link.href = canvas.toDataURL();
-        link.click();
-      });
-    }
+function downloadImage() {
+  const target = document.querySelector('.modal-content');
+  if (!target || typeof html2canvas === 'undefined') return;
+  html2canvas(target).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'estado-animo.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  }).catch(err => {
+    console.error('html2canvas error:', err);
+  });
+}
 
-    if (shareBtn) shareBtn.addEventListener('click', openModal);
-    // botones del modal (delegación simple)
-    document.addEventListener('click', (e) => {
-      if (e.target.matches('#share-modal button') && e.target.textContent.includes('Cerrar')) closeModal();
-      if (e.target.matches('#share-modal button') && e.target.textContent.includes('Descargar')) downloadImage();
+/* ---------- INICIALIZACIÓN (DOMContentLoaded) ---------- */
+window.addEventListener('DOMContentLoaded', () => {
+  const cityInput = document.getElementById('citySelector');
+  const shareBtn = document.querySelector('.share-btn');
+  const modal = document.getElementById('share-modal');
+
+  // boton compartir
+  if (shareBtn) shareBtn.addEventListener('click', openModal);
+
+  // delegación para botones dentro del modal (usa data-action)
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const action = btn.getAttribute('data-action');
+    if (action === 'download') downloadImage();
+    if (action === 'close') closeModal();
+  });
+
+  // Si el input existe, registramos listeners con debounce
+  if (cityInput) {
+    const debouncedApply = debounce(() => {
+      if (!cityInput.value || cityInput.value.trim() === '') return;
+      applyRandomBars();
+    }, 400);
+
+    cityInput.addEventListener('input', debouncedApply);
+
+    // change por si el usuario confirma con Enter o selección desde datalist
+    cityInput.addEventListener('change', () => {
+      if (!cityInput.value || cityInput.value.trim() === '') return;
+      applyRandomBars();
     });
+  }
 
-  }); // fin DOMContentLoaded
+  // opcional: si quieres que haya un estado inicial de barras (ej. todas 0) no hagas nada;
+  // si prefieres poblar al cargar, descomenta la línea siguiente:
+  // applyRandomBars();
+});
 </script>
 
 <!-- corregir google translate init (sin 'w' extra) -->
@@ -487,6 +483,7 @@
   <div class="panel-lateral panel-derecha"></div>
   </body>
   </html>
+
 
 
 
