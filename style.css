@@ -277,6 +277,21 @@ footer a {
   margin-left: 0.5rem;
 }
 
+ /* evita scroll cuando el modal está abierto */
+.no-scroll { overflow: hidden; }
+
+/* Visually-hidden helper si quieres un label accesible sin mostrarlo */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
 /* Animaciones */
 @keyframes palpitar {
   0%,100% { transform: scale(1) }
@@ -331,3 +346,4 @@ main, header {
     display: none;
   }
 }
+
