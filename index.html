@@ -339,7 +339,7 @@ function debounce(fn, wait = 300) {
   };
 }
 
-/* aplica valores aleatorios a las barras (una sola definición, reutilizable) */
+/* aplica valores aleatorios a las barras */
 function applyRandomBars() {
   const randomBars = getRandomBars();
   document.querySelectorAll('.bar').forEach((bar, i) => {
@@ -364,11 +364,16 @@ function applyRandomBars() {
 }
 
 /* ---------- MODAL: abrir / cerrar / descargar ---------- */
+function handleEscClose(e) {
+  if (e.key === 'Escape') closeModal();
+}
+
 function openModal() {
   const chart = document.getElementById('shareChart');
-  if (!chart) return;
-  chart.innerHTML = '';
+  const modal = document.getElementById('share-modal');
+  if (!chart || !modal) return;
 
+  chart.innerHTML = '';
   document.querySelectorAll('.bar').forEach(bar => {
     const mood = bar.classList[1] || 'mood';
     const value = bar.getAttribute('data-value') || 0;
@@ -378,7 +383,7 @@ function openModal() {
     const wrapper = document.createElement('div');
     wrapper.className = 'share-bar';
     wrapper.innerHTML = `
-      <span>${(mood.charAt(0).toUpperCase() + mood.slice(1)).replace(/^\w/, c => c)}</span>
+      <span style="font-weight:600; margin-right:0.5rem;">${mood.charAt(0).toUpperCase() + mood.slice(1)}</span>
       <div style="display:flex; gap:0.5rem; align-items:center; width:70%;">
         <div class="share-bar-fill" style="width:${value}%; background:${color}; height:1rem; border-radius:6px;"></div>
         <strong style="min-width:45px; text-align:right;">${value}%</strong>
@@ -387,12 +392,14 @@ function openModal() {
     chart.appendChild(wrapper);
   });
 
-  const modal = document.getElementById('share-modal');
-  if (!modal) return;
   modal.classList.remove('hidden');
   modal.setAttribute('aria-hidden', 'false');
+  modal.setAttribute('aria-modal', 'true');
 
-  // foco accesible: intenta enfocar el primer botón accionable
+  // evitar scroll del fondo
+  document.body.classList.add('no-scroll');
+
+  // foco accesible
   const btnClose = modal.querySelector('[data-action="close"]');
   if (btnClose) btnClose.focus();
 
@@ -405,11 +412,12 @@ function closeModal() {
   if (!modal) return;
   modal.classList.add('hidden');
   modal.setAttribute('aria-hidden', 'true');
-  document.removeEventListener('keydown', handleEscClose);
-}
+  modal.removeAttribute('aria-modal');
 
-function handleEscClose(e) {
-  if (e.key === 'Escape') closeModal();
+  // restaurar scroll
+  document.body.classList.remove('no-scroll');
+
+  document.removeEventListener('keydown', handleEscClose);
 }
 
 function downloadImage() {
@@ -420,19 +428,24 @@ function downloadImage() {
     link.download = 'estado-animo.png';
     link.href = canvas.toDataURL();
     link.click();
-  }).catch(err => {
-    console.error('html2canvas error:', err);
-  });
+  }).catch(err => console.error('html2canvas error:', err));
 }
 
-/* ---------- INICIALIZACIÓN (DOMContentLoaded) ---------- */
+/* ---------- INICIALIZACIÓN ---------- */
 window.addEventListener('DOMContentLoaded', () => {
   const cityInput = document.getElementById('citySelector');
   const shareBtn = document.querySelector('.share-btn');
   const modal = document.getElementById('share-modal');
 
-  // boton compartir
+  // abrir modal con botón compartir (solo una vez)
   if (shareBtn) shareBtn.addEventListener('click', openModal);
+
+  // cerrar modal al clickear fuera (backdrop)
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal(); // clic directo en el overlay
+    });
+  }
 
   // delegación para botones dentro del modal (usa data-action)
   document.addEventListener('click', (e) => {
@@ -459,11 +472,20 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // opcional: si quieres que haya un estado inicial de barras (ej. todas 0) no hagas nada;
-  // si prefieres poblar al cargar, descomenta la línea siguiente:
+  // opcional: estado inicial
   // applyRandomBars();
 });
 </script>
+
+    <script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'es',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     
   </div>
 
@@ -471,6 +493,7 @@ window.addEventListener('DOMContentLoaded', () => {
   <div class="panel-lateral panel-derecha"></div>
   </body>
   </html>
+
 
 
 
