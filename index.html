@@ -69,7 +69,9 @@
     <h2>Descubre tus matices de ánimo hoy dependiendo del clima en dónde vives</h2>
       
     <div class="selector">
-      <input list="cityList" id="citySelector" placeholder="¿De dónde eres?" />
+      <label for="citySelector" class="sr-only">Selecciona tu ciudad</label>
+      <input list="cityList" id="citySelector" placeholder="¿De dónde eres?" aria-label="Ciudad" />
+      <button type="button" class="share-btn">Compartir mi estado</button>
       
       <datalist id="cityList">
         <option value="Abu Dabi (Emiratos Árabes Unidos)"></option>
@@ -493,6 +495,7 @@ window.addEventListener('DOMContentLoaded', () => {
   <div class="panel-lateral panel-derecha"></div>
   </body>
   </html>
+
 
 
 
