@@ -460,20 +460,31 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Si el input existe, registramos listeners con debounce
   if (cityInput) {
+    // función auxiliar: comprueba si el valor coincide exactamente con alguna opción del datalist
+    function inputValueIsInDatalist(value) {
+      return Array.from(document.querySelectorAll('#cityList option'))
+        .some(opt => opt.value.trim().toLowerCase() === value.trim().toLowerCase());
+    }
+  
     const debouncedApply = debounce(() => {
-      if (!cityInput.value || cityInput.value.trim() === '') return;
+      const v = cityInput.value || '';
+      if (!v.trim()) return;
+      // Opcional: solo aplicar si el valor está en la lista. Comenta la siguiente línea si no quieres esta restricción.
+      if (!inputValueIsInDatalist(v)) return;
       applyRandomBars();
     }, 400);
-
+  
+    // disparar con debounce mientras escribe (y también cuando selecciona desde datalist)
     cityInput.addEventListener('input', debouncedApply);
-
-    // change por si el usuario confirma con Enter o selección desde datalist
+  
+    // disparar también cuando se confirma (Enter) o se selecciona con clic; aplica misma validación
     cityInput.addEventListener('change', () => {
-      if (!cityInput.value || cityInput.value.trim() === '') return;
+      const v = cityInput.value || '';
+      if (!v.trim()) return;
+      if (!inputValueIsInDatalist(v)) return; // comentar si no quieres validación
       applyRandomBars();
     });
   }
-
   // opcional: estado inicial
   // applyRandomBars();
 });
@@ -495,6 +506,7 @@ window.addEventListener('DOMContentLoaded', () => {
   <div class="panel-lateral panel-derecha"></div>
   </body>
   </html>
+
 
 
 
